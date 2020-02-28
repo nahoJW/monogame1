@@ -13,11 +13,11 @@ namespace Template
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
-        Texture2D xwing;
-        Texture2D xwing2;
-        Vector2 xwingPos = new Vector2(350, 300);
-        Vector2 xwingPos2 = new Vector2(350, -100);
-        List<Vector2> xwingBulletPos = new List<Vector2>();
+        private Texture2D xwing;
+        private Texture2D xwing2;
+        private Vector2 xwingPos = new Vector2(350, 300);
+        private Vector2 xwingPos2 = new Vector2(350, -100);
+        private List<Vector2> xwingBulletPos = new List<Vector2>();      
 
         KeyboardState kNewState;
         KeyboardState kOldState;
