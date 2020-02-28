@@ -14,13 +14,15 @@ namespace Template
         SpriteBatch spriteBatch;
 
         Texture2D xwing;
-        Vector2 xwingPos = new Vector2(100, 300);
+        Texture2D xwing2;
+        Vector2 xwingPos = new Vector2(350, 300);
+        Vector2 xwingPos2 = new Vector2(350, -100);
         List<Vector2> xwingBulletPos = new List<Vector2>();
-
-
 
         KeyboardState kNewState;
         KeyboardState kOldState;
+
+        Rectangle hitbox = new Rectangle (100,100,100,100);
 
         public Game1()
         {
@@ -50,6 +52,8 @@ namespace Template
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             xwing = Content.Load<Texture2D>("xwing");
+            xwing2 = Content.Load<Texture2D>("xwing");
+
             // TODO: use this.Content to load your game content here
         }
 
@@ -81,6 +85,7 @@ namespace Template
             if (kNewState.IsKeyDown(Keys.Space) && kOldState.IsKeyUp(Keys.Space))
             {
                 xwingBulletPos.Add(xwingPos);
+                
             }
 
             for (int i = 0; i < xwingBulletPos.Count; i++)
@@ -102,6 +107,8 @@ namespace Template
 
             kOldState = kNewState;
 
+            xwingPos2.Y++;
+
             // TODO: Add your update logic here
 
             base.Update(gameTime);
@@ -118,12 +125,14 @@ namespace Template
             spriteBatch.Begin();
 
             spriteBatch.Draw(xwing, xwingPos, Color.White);
+            spriteBatch.Draw(xwing2, xwingPos2, Color.White);
+
             foreach (Vector2 bulletPos in xwingBulletPos)
             {
                 Rectangle rec = new Rectangle();
                 rec.Location = bulletPos.ToPoint();
                 rec.Size = new Point(3, 100);
-                spriteBatch.Draw(xwing, rec, Color.Blue);
+                spriteBatch.Draw(xwing, rec, Color.Red);
             }
 
              
@@ -134,7 +143,5 @@ namespace Template
         }
     }
 }
-
-
 
 
