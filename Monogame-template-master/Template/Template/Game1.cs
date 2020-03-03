@@ -14,9 +14,11 @@ namespace Template
         SpriteBatch spriteBatch;
 
         private Texture2D xwing;
-        private Texture2D xwing2;
+
         private Vector2 xwingPos = new Vector2(350, 300);
-        private Vector2 xwingPos2 = new Vector2(350, -100);
+        private Vector2 enemyPos = new Vector2(150, -100);
+        private Vector2 enemyPos2 = new Vector2(350, -100);
+        private Vector2 enemyPos3 = new Vector2(550, -100);
         private List<Vector2> xwingBulletPos = new List<Vector2>();      
 
         KeyboardState kNewState;
@@ -52,7 +54,7 @@ namespace Template
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             xwing = Content.Load<Texture2D>("xwing");
-            xwing2 = Content.Load<Texture2D>("xwing");
+
 
             // TODO: use this.Content to load your game content here
         }
@@ -77,10 +79,16 @@ namespace Template
                 Exit();
             kNewState = Keyboard.GetState();
 
-            if (kNewState.IsKeyDown(Keys.Right))
-                xwingPos.X += 10;
-            if (kNewState.IsKeyDown(Keys.Left))
-                xwingPos.X -= 10;
+            if (kNewState.IsKeyDown(Keys.Right) && kOldState.IsKeyUp(Keys.Right)){
+                enemyPos.X += 200;
+                enemyPos2.X += 200;
+                enemyPos3.X += 200;
+                }
+            if (kNewState.IsKeyDown(Keys.Left) && kOldState.IsKeyUp(Keys.Left)){
+                enemyPos.X -= 200;
+                enemyPos2.X -= 200;
+                enemyPos3.X -= 200;
+            }
 
             if (kNewState.IsKeyDown(Keys.Space) && kOldState.IsKeyUp(Keys.Space))
             {
@@ -107,7 +115,9 @@ namespace Template
 
             kOldState = kNewState;
 
-            xwingPos2.Y++;
+            enemyPos.Y++;
+            enemyPos2.Y++;
+            enemyPos3.Y++;
 
             // TODO: Add your update logic here
 
@@ -124,15 +134,19 @@ namespace Template
 
             spriteBatch.Begin();
 
+
+
             spriteBatch.Draw(xwing, xwingPos, Color.White);
-            spriteBatch.Draw(xwing2, xwingPos2, Color.White);
+            spriteBatch.Draw(xwing, enemyPos, Color.Red);
+            spriteBatch.Draw(xwing, enemyPos2, Color.Orange);
+            spriteBatch.Draw(xwing, enemyPos3, Color.Red);
 
             foreach (Vector2 bulletPos in xwingBulletPos)
             {
                 Rectangle rec = new Rectangle();
                 rec.Location = bulletPos.ToPoint();
                 rec.Size = new Point(3, 100);
-                spriteBatch.Draw(xwing, rec, Color.Red);
+                spriteBatch.Draw(xwing, rec, Color.Blue);
             }
 
              
