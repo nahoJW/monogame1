@@ -14,8 +14,11 @@ namespace Template
         SpriteBatch spriteBatch;
 
         private Texture2D xwing;
+        private Texture2D boarder;
 
         private Vector2 xwingPos = new Vector2(350, 300);
+        private Vector2 boarderPos = new Vector2(0, -100);
+        private Vector2 boarderPos2 = new Vector2(700, -100);
         private Vector2 enemyPos = new Vector2(150, -100);
         private Vector2 enemyPos2 = new Vector2(350, -100);
         private Vector2 enemyPos3 = new Vector2(550, -100);
@@ -54,6 +57,7 @@ namespace Template
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             xwing = Content.Load<Texture2D>("xwing");
+            boarder = Content.Load<Texture2D>("black");
 
 
             // TODO: use this.Content to load your game content here
@@ -80,15 +84,25 @@ namespace Template
             kNewState = Keyboard.GetState();
 
             if (kNewState.IsKeyDown(Keys.Right) && kOldState.IsKeyUp(Keys.Right)){
+                boarderPos.X += 200;
+                boarderPos2.X += 200;
                 enemyPos.X += 200;
                 enemyPos2.X += 200;
                 enemyPos3.X += 200;
                 }
             if (kNewState.IsKeyDown(Keys.Left) && kOldState.IsKeyUp(Keys.Left)){
                 enemyPos.X -= 200;
+                boarderPos.X -= 200;
+                boarderPos2.X -= 200;
                 enemyPos2.X -= 200;
                 enemyPos3.X -= 200;
             }
+            if (enemyPos.Y >= 500){
+                enemyPos.Y=-100;
+                enemyPos2.Y=-100;
+                enemyPos3.Y=-100;
+            }
+
 
             if (kNewState.IsKeyDown(Keys.Space) && kOldState.IsKeyUp(Keys.Space))
             {
@@ -115,9 +129,9 @@ namespace Template
 
             kOldState = kNewState;
 
-            enemyPos.Y++;
-            enemyPos2.Y++;
-            enemyPos3.Y++;
+            enemyPos.Y+=4;
+            enemyPos2.Y+=4;
+            enemyPos3.Y+=4;
 
             // TODO: Add your update logic here
 
@@ -137,15 +151,18 @@ namespace Template
 
 
             spriteBatch.Draw(xwing, xwingPos, Color.White);
+            spriteBatch.Draw(boarder, boarderPos, Color.White);
+            spriteBatch.Draw(boarder, boarderPos2, Color.White);
             spriteBatch.Draw(xwing, enemyPos, Color.Red);
             spriteBatch.Draw(xwing, enemyPos2, Color.Orange);
             spriteBatch.Draw(xwing, enemyPos3, Color.Red);
+
 
             foreach (Vector2 bulletPos in xwingBulletPos)
             {
                 Rectangle rec = new Rectangle();
                 rec.Location = bulletPos.ToPoint();
-                rec.Size = new Point(3, 100);
+                rec.Size = new Point(10, 100);
                 spriteBatch.Draw(xwing, rec, Color.Blue);
             }
 
