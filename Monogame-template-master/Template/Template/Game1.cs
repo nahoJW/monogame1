@@ -17,8 +17,8 @@ namespace Template
         private Texture2D boarder;
 
         private Vector2 xwingPos = new Vector2(350, 300);
-        private Vector2 boarderPos = new Vector2(0, -100);
-        private Vector2 boarderPos2 = new Vector2(700, -100);
+        private Vector2 boarderPos = new Vector2(-25, -100);
+        private Vector2 boarderPos2 = new Vector2(600, -100);
         private Vector2 enemyPos = new Vector2(150, -100);
         private Vector2 enemyPos2 = new Vector2(350, -100);
         private Vector2 enemyPos3 = new Vector2(550, -100);
@@ -84,18 +84,18 @@ namespace Template
             kNewState = Keyboard.GetState();
 
             if (kNewState.IsKeyDown(Keys.Right) && kOldState.IsKeyUp(Keys.Right)){
-                boarderPos.X += 200;
-                boarderPos2.X += 200;
-                enemyPos.X += 200;
-                enemyPos2.X += 200;
-                enemyPos3.X += 200;
-                }
-            if (kNewState.IsKeyDown(Keys.Left) && kOldState.IsKeyUp(Keys.Left)){
-                enemyPos.X -= 200;
                 boarderPos.X -= 200;
                 boarderPos2.X -= 200;
+                enemyPos.X -= 200;
                 enemyPos2.X -= 200;
                 enemyPos3.X -= 200;
+                }
+            if (kNewState.IsKeyDown(Keys.Left) && kOldState.IsKeyUp(Keys.Left)){
+                enemyPos.X += 200;
+                boarderPos.X += 200;
+                boarderPos2.X += 200;
+                enemyPos2.X += 200;
+                enemyPos3.X += 200;
             }
             if (enemyPos.Y >= 500){
                 enemyPos.Y=-100;
@@ -174,5 +174,4 @@ namespace Template
         }
     }
 }
-
 
